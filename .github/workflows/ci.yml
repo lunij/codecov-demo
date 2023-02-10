@@ -1,0 +1,13 @@
+name: CI
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  macOS:
+    name: macOS
+    runs-on: macos-12
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3.2.0
+      - name: Test
+        run: swift test --enable-code-coverage
