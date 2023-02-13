@@ -17,4 +17,8 @@ class FoobarTests: XCTestCase {
     func test_returnsHelloWorld() {
         XCTAssertEqual(sut.returnHelloWorld(), "Hello World")
     }
+
+    func test_returnsExpected() {
+        XCTAssertEqual(sut.returnExpected(true), "expected")
+    }
 }
