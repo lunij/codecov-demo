@@ -10,15 +10,19 @@ on:
 jobs:
   macOS:
     name: macOS
-    runs-on: macos-12
+    runs-on: ${{ matrix.runs-on }}
+    env:
+      DEVELOPER_DIR: "/Applications/${{ matrix.xcode }}/Contents/Developer"
+    strategy:
+      matrix:
+        include:
+          - xcode: "Xcode_14.2.app"
+            runs-on: macOS-12
+          - xcode: "Xcode_13.0.app"
+            runs-on: macOS-11
     steps:
+      - run: swift --version
       - name: Checkout branch
         uses: actions/checkout@v3.2.0
       - name: Test
         run: swift test --enable-code-coverage
-      - name: Export code coverage in lcov format
-        run: xcrun llvm-cov export -format="lcov" -instr-profile .build/debug/codecov/default.profdata .build/debug/CodecovDemoPackageTests.xctest/Contents/MacOS/CodecovDemoPackageTests > coverage.lcov
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.1
-        with:
-          files: coverage.lcov
