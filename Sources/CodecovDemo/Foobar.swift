@@ -7,4 +7,8 @@ class Foobar {
     func returnHelloWorld() -> String {
         "Hello World"
     }
+
+    func returnExpected(_ bool: Bool) -> String {
+        bool ? "expected" : "not expected"
+    }
 }
